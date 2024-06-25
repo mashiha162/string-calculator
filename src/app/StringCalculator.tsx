@@ -5,10 +5,14 @@ export class StringCalculator {
     this.callCount++;
     if (numbers.startsWith("//")) {
       const delimiterEnd = numbers.indexOf("\n");
-      const delimiter = numbers.substring(2, delimiterEnd);
+      const delimiters = numbers
+        .substring(2, delimiterEnd)
+        .split("][")
+        .map((d) => d.replace(/[\[\]]/g, ""));
       numbers = numbers.substring(delimiterEnd + 1);
+      const regex = new RegExp(`[${delimiters.join("|")}|\n]`);
       const numbersArray = numbers
-        .split(new RegExp(`[${delimiter.replace(/[\[\]]/g, "")}\n]`))
+        .split(regex)
         .map(Number)
         .filter((num) => num <= 1000);
       this.checkForNegatives(numbersArray);
