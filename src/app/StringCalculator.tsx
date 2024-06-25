@@ -8,7 +8,7 @@ export class StringCalculator {
       const delimiter = numbers.substring(2, delimiterEnd);
       numbers = numbers.substring(delimiterEnd + 1);
       const numbersArray = numbers
-        .split(new RegExp(`[${delimiter}\n]`))
+        .split(new RegExp(`[${delimiter.replace(/[\[\]]/g, "")}\n]`))
         .map(Number)
         .filter((num) => num <= 1000);
       this.checkForNegatives(numbersArray);
