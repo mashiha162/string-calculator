@@ -40,4 +40,10 @@ describe("StringCalculator", () => {
       "negatives not allowed: -1, -2"
     );
   });
+
+  test("returns the number of times add method was called", () => {
+    calculator.add("1");
+    calculator.add("2");
+    expect(calculator.getCalledCount()).toBe(2);
+  });
 });

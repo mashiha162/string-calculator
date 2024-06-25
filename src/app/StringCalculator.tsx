@@ -1,5 +1,8 @@
 export class StringCalculator {
+  private callCount = 0;
+
   add(numbers: string): number {
+    this.callCount++;
     if (numbers.startsWith("//")) {
       const delimiterEnd = numbers.indexOf("\n");
       const delimiter = numbers.substring(2, delimiterEnd);
@@ -10,11 +13,14 @@ export class StringCalculator {
       this.checkForNegatives(numbersArray);
       return numbersArray.reduce((acc, num) => acc + num, 0);
     }
-
     if (numbers === "") return 0;
     const numbersArray = numbers.split(/[\n,]/).map(Number);
     this.checkForNegatives(numbersArray);
     return numbersArray.reduce((acc, num) => acc + num, 0);
+  }
+
+  getCalledCount(): number {
+    return this.callCount;
   }
 
   private checkForNegatives(numbers: number[]): void {
