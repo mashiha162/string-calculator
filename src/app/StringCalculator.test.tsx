@@ -30,4 +30,14 @@ describe("StringCalculator", () => {
   test("supports different delimiters", () => {
     expect(calculator.add("//;\n1;2")).toBe(3);
   });
+
+  test("throws an exception for negative numbers", () => {
+    expect(() => calculator.add("1,-2,3")).toThrow("negatives not allowed: -2");
+  });
+
+  test("throws an exception for multiple negative numbers", () => {
+    expect(() => calculator.add("-1,-2,3")).toThrow(
+      "negatives not allowed: -1, -2"
+    );
+  });
 });
