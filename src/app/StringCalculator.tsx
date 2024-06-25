@@ -10,9 +10,12 @@ export class StringCalculator {
         .split("][")
         .map((d) => d.replace(/[\[\]]/g, ""));
       numbers = numbers.substring(delimiterEnd + 1);
-      const regex = new RegExp(`[${delimiters.join("|")}|\n]`);
+      const regex = new RegExp(
+        `(${delimiters.map((d) => this.escRegExp(d)).join("|")})|\n`
+      );
       const numbersArray = numbers
         .split(regex)
+        .filter(Boolean)
         .map(Number)
         .filter((num) => num <= 1000);
       this.checkForNegatives(numbersArray);
@@ -36,5 +39,9 @@ export class StringCalculator {
     if (negativeNumbers.length) {
       throw new Error(`negatives not allowed: ${negativeNumbers.join(", ")}`);
     }
+  }
+
+  private escRegExp(string: string): string {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
 }
