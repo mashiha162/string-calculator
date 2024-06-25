@@ -9,12 +9,16 @@ export class StringCalculator {
       numbers = numbers.substring(delimiterEnd + 1);
       const numbersArray = numbers
         .split(new RegExp(`[${delimiter}\n]`))
-        .map(Number);
+        .map(Number)
+        .filter((num) => num <= 1000);
       this.checkForNegatives(numbersArray);
       return numbersArray.reduce((acc, num) => acc + num, 0);
     }
     if (numbers === "") return 0;
-    const numbersArray = numbers.split(/[\n,]/).map(Number);
+    const numbersArray = numbers
+      .split(/[\n,]/)
+      .map(Number)
+      .filter((num) => num <= 1000);
     this.checkForNegatives(numbersArray);
     return numbersArray.reduce((acc, num) => acc + num, 0);
   }
